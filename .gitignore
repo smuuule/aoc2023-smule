@@ -1,0 +1,3 @@
+# AOC2023 Python gitignore
+
+__pycache__/
