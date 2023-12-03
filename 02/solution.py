@@ -1,16 +1,11 @@
-def getCounts(game) -> list[list[int]]:
+def getCounts(game) -> list:
     n, cubes = game[5:].split(': ',)
     counts = [[0]*3 for _ in range(len(cubes.split('; ')))]
     i = 0
     for grab in cubes.split('; '):
         for color in grab.split(', '):
-            match color.split(' ')[1]:
-                case 'red':
-                    counts[i][0] += int(color.split(' ')[0])
-                case 'green':
-                    counts[i][1] += int(color.split(' ')[0])
-                case 'blue':
-                    counts[i][2] += int(color.split(' ')[0])
+            colors = ['red', 'green', 'blue']
+            counts[i][colors.index(color.split(' ')[1])] += int(color.split(' ')[0])
         
         i += 1
     
@@ -27,7 +22,7 @@ def possibleGame(game) -> bool:
     
     return True
 
-def maxCubes(game) -> list[int]:
+def maxCubes(game) -> list:
     counts = getCounts(game)
     mins = counts[0]
 
