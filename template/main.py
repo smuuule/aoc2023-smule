@@ -1,6 +1,7 @@
 # Advent of code 2023 Day x
 # Solution by: https://github.com/smuuule
 import sys, argparse
+from pprint import pprint
 from solution import part1, part2
 
 def main(argv):
@@ -19,7 +20,7 @@ def main(argv):
     elif args.part == 2:
         output = part2(input)
         
-    print(output)
+    pprint(output)
 
 if __name__ == '__main__':
     main(sys.argv[1:])
