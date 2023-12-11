@@ -8,10 +8,7 @@ def expand(matrix):
     rows = []
     for i,line in enumerate(matrix):
         if line.count('.') == len(line):
-            if i < len(line):
-                rows.append(i)
-            else:
-                rows.append(i+1)
+            rows.append(i)
 
     new_matrix = matrix
     for i, index in enumerate(rows):
@@ -21,10 +18,7 @@ def expand(matrix):
     cols = []
     for i,line in enumerate(matrix_t):
         if line.count('.') == len(line):
-            if i < len(line):
-                cols.append(i)
-            else:
-                cols.append(i+1)
+            cols.append(i)
     
     new_matrix = transpose(new_matrix)
     for i, index in enumerate(cols):
@@ -47,13 +41,49 @@ def part1(input):
 
 
     pairs = [(a, b) for i, a in enumerate(coords) for b in coords[i + 1:]]
-    count = 0
+    counts = []
     for pair in pairs:
         a, b = pair
-        count += abs(a[0] - b[0]) + abs(a[1] - b[1])
+        counts.append(abs(a[0] - b[0]) + abs(a[1] - b[1]))
 
-    return count
+    return counts
     
 def part2(input):
+    matrix = []
+    for line in input.splitlines():
+        matrix.append([*line])
+
+    rows = []
+    for i,line in enumerate(matrix):
+        if line.count('.') == len(line):
+            rows.append(i)
+
+    matrix_t = transpose(matrix)
+    cols = []
+    for i,line in enumerate(matrix_t):
+        if line.count('.') == len(line):
+            cols.append(i)
+
+    coords = []
+    for i, line in enumerate(matrix):
+        for j, c in enumerate(line):
+            if c == '#':
+                coords.append((j, i))
     
-    return "TODO part 2"
+    pairs = [(a, b) for i, a in enumerate(coords) for b in coords[i + 1:]]
+    count = 0
+    for pair in pairs:
+        temp_cols = cols
+        temp_rows = rows
+        a, b = pair
+        for i in range(min(a[0], b[0]), max(a[0], b[0])):
+            if i in temp_cols:
+                count += 1000000 - 1
+            count += 1
+        
+        for i in range(min(a[1], b[1]), max(a[1], b[1])):
+            if i in temp_rows:
+                count += 1000000 - 1
+            count += 1
+
+    return count
